@@ -12,7 +12,7 @@ function WeatherDisplay() {
         const searchString = inputElement.value;
 
         // Find the location data based on searchString
-        const searchedDataObj = locations.find(item => item.city === searchString);
+        const searchedDataObj = locations.find(item => item.city.toLocaleLowerCase() === searchString.toLocaleLowerCase());
 
         // Update the display object state
         if (searchedDataObj) {
@@ -26,22 +26,25 @@ function WeatherDisplay() {
 
     return (
         <>
+
+            <div>
+                <input type="text" id="search-city" />
+                <button type="button" onClick={searchFunc}>Search</button>
+            </div>
+
             <div className='weather-display'>
                 {displayObj ? (
                     <>
                         <h1 className='city'>{displayObj.city}</h1>
                         <p className='weather-info'>{displayObj.temperature}</p>
-                        <h1 className='weather'>{displayObj.weather}</h1>
+                        <h1 className='weather-info'>{displayObj.weather}</h1>
                     </>
                 ) : (
                     <p>City not found. Please try another search.</p>
                 )}
             </div>
 
-            <div>
-                <input type="text" id="search-city" />
-                <button type="button" onClick={searchFunc}>Search</button>
-            </div>
+           
         </>
     );
 }
